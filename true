@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20171012145628_add_index_to_receptionist_email_id.rb

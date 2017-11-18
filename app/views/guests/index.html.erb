@@ -1,0 +1,105 @@
+<style>
+  h1 {
+    background-color: orange;
+    padding: 5%;
+    font-family: "Noto Sans CJK SC Bold";
+  }
+  .btn-color{
+    color: red;
+    text-decoration-color: red;
+  }
+  .name {
+    cursor: pointer;
+  }
+  table, th, td {
+    border: 2px solid black;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th {
+    text-align: center;
+    height: 50px;
+  }
+  td {
+    text-align: center;
+  }
+  .btn-color {
+  }
+  #myInput {
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 20%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+  }
+</style>
+
+<script rel = "application.js"></script>
+
+<h1>Atithi</h1>
+
+<p id = "notice"><%= notice %></p>
+
+<% if current_user.email_id != "admin@coreuser.com" %>
+    <h4>Receptionist</h4>
+    <h4>User:<%= current_user.name%></h4>
+<%else%>
+    <h4>Admin</h4>
+    <h4>User:<%= current_user.name%></h4>
+<% end %>
+
+<h2>Guests List</h2>
+
+<input type = "text" id = "myInput" onkeyup = "myFunction()" placeholder = "Search for names..">
+
+<table id = "myTable">
+  <thead>
+  <tr>
+    <th onclick = "sortTable(0)", class = "name">Name</th>
+    <th>Email</th>
+    <th>Mobile no</th>
+    <th>In time</th>
+    <th>Out time</th>
+    <th>Receptionist</th>
+    <th colspan = "3">Actions</th>
+  </tr>
+  </thead>
+
+
+
+  <tbody>
+  <% if @guests.ids.first == nil %>
+      <tr><td colspan="9", style="font-size: medium">No data to show</td></tr>
+  <%else%>
+      <% @guests.each do |guest| %>
+          <tr>
+            <td><%= guest.name %></td>
+            <td><%= guest.email_id %></td>
+            <td><%= guest.mobile_no %></td>
+            <td><%= guest.in_time %></td>
+            <td><%= guest.out_time %></td>
+            <td><%= guest.receptionist.name %></td>
+            <td><%= link_to 'Show', guest %></td>
+            <td><%= link_to 'Edit', edit_guest_path(guest) %></td>
+            <td><%= link_to 'Destroy', guest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if current_user.id == 41 %>
+    <button class = "btn-color"><%= link_to 'New Guest', new_guest_path %></button>
+    <button><%= link_to 'Log out', "/log_out" %></button>
+
+<% else %>
+    <button><%= link_to 'New Guest', new_guest_path %></button>
+    <button><%= link_to 'Log out', "/log_out" %></button></br>
+
+<% end %>

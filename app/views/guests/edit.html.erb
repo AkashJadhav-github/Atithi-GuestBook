@@ -1,0 +1,16 @@
+<style>
+  h1 {
+    background-color: orange;
+    padding: 5%;
+    font-family: 'Noto Sans CJK SC Bold';
+  }
+</style>
+
+<h1>Atithi</h1>
+
+<h2>Editing Guest</h2>
+
+<%= render 'form', guest: @guest %>
+
+<button><%= link_to 'Show', @guest %></button> |
+<button><%= link_to 'Back', guests_path %></button>
